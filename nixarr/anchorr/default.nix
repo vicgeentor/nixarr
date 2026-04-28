@@ -75,18 +75,18 @@ in {
       description = "Path to a file containing the TMDB API key.";
     };
 
-    jellyseerr = {
+    seerr = {
       url = mkOption {
         type = types.str;
         default = "http://localhost:5055";
         example = "http://192.168.1.50:5055";
-        description = "URL of the Jellyseerr instance.";
+        description = "URL of the Seerr instance.";
       };
       apiKeyFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        example = "/data/.secret/anchorr/jellyseerr-api-key";
-        description = "Path to a file containing the Jellyseerr API key.";
+        example = "/data/.secret/anchorr/seerr-api-key";
+        description = "Path to a file containing the Seerr API key.";
       };
     };
 
@@ -229,8 +229,8 @@ in {
       description = "Setup Anchorr configuration and environment";
       requiredBy = ["anchorr.service"];
       before = ["anchorr.service"];
-      requires = optional nixarr.jellyseerr.enable "jellyseerr-api-key.service";
-      after = optional nixarr.jellyseerr.enable "jellyseerr-api-key.service";
+      requires = optional nixarr.seerr.enable "seerr-api-key.service";
+      after = optional nixarr.seerr.enable "seerr-api-key.service";
 
       serviceConfig = {
         Type = "oneshot";
@@ -262,16 +262,16 @@ in {
             echo "" >> "$ENV_FILE"
           ''}
 
-          ${optionalString (cfg.jellyseerr.apiKeyFile != null) ''
-            printf "JELLYSEERR_API_KEY=" >> "$ENV_FILE"
-            cat '${cfg.jellyseerr.apiKeyFile}' >> "$ENV_FILE"
+          ${optionalString (cfg.seerr.apiKeyFile != null) ''
+            printf "SEERR_API_KEY=" >> "$ENV_FILE"
+            cat '${cfg.seerr.apiKeyFile}' >> "$ENV_FILE"
             echo "" >> "$ENV_FILE"
           ''}
 
-          ${optionalString (nixarr.jellyseerr.enable && cfg.jellyseerr.apiKeyFile == null) ''
-            if [[ -f '${nixarr.stateDir}/api-keys/jellyseerr.key' ]]; then
-              printf "JELLYSEERR_API_KEY=" >> "$ENV_FILE"
-              cat '${nixarr.stateDir}/api-keys/jellyseerr.key' >> "$ENV_FILE"
+          ${optionalString (nixarr.seerr.enable && cfg.seerr.apiKeyFile == null) ''
+            if [[ -f '${nixarr.stateDir}/api-keys/seerr.key' ]]; then
+              printf "SEERR_API_KEY=" >> "$ENV_FILE"
+              cat '${nixarr.stateDir}/api-keys/seerr.key' >> "$ENV_FILE"
               echo "" >> "$ENV_FILE"
             fi
           ''}
@@ -288,7 +288,7 @@ in {
       wantedBy = ["multi-user.target"];
 
       environment = {
-        JELLYSEERR_URL = cfg.jellyseerr.url;
+        SEERR_URL = cfg.seerr.url;
         WEBHOOK_PORT = toString cfg.port;
       };
 
@@ -338,7 +338,7 @@ in {
         isSystemUser = true;
         group = globals.anchorr.group;
         uid = globals.uids.${globals.anchorr.user};
-        extraGroups = optional nixarr.jellyseerr.enable "jellyseerr-api";
+        extraGroups = optional nixarr.seerr.enable "seerr-api";
       };
     };
 

@@ -15,7 +15,7 @@ in {
     ./bazarr
     ./ddns
     ./jellyfin
-    ./jellyseerr
+    ./seerr
     ./lib/api-keys.nix
     ./komga
     ./lidarr
@@ -65,7 +65,7 @@ in {
         - [Autobrr](#nixarr.autobrr.enable)
         - [Bazarr](#nixarr.bazarr.enable)
         - [Jellyfin](#nixarr.jellyfin.enable)
-        - [Jellyseerr](#nixarr.jellyseerr.enable)
+        - [Seerr](#nixarr.seerr.enable)
         - [Lidarr](#nixarr.lidarr.enable)
         - [Plex](#nixarr.plex.enable)
         - [Prowlarr](#nixarr.prowlarr.enable)

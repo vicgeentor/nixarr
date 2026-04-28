@@ -23,7 +23,7 @@ pkgs.testers.nixosTest {
 
       jellyfin.enable = true;
       plex.enable = true;
-      jellyseerr.enable = true;
+      seerr.enable = true;
       audiobookshelf.enable = true;
 
       transmission = {
@@ -103,7 +103,7 @@ pkgs.testers.nixosTest {
 
     # Check that all services are operational
     machine.succeed("systemctl is-active jellyfin")
-    machine.succeed("systemctl is-active jellyseerr")
+    machine.succeed("systemctl is-active seerr")
     machine.succeed("systemctl is-active audiobookshelf")
     machine.succeed("systemctl is-active plex")
     machine.succeed("systemctl is-active transmission")

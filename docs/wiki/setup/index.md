@@ -79,7 +79,7 @@ already set. See the following links for more info:
 - Go to {URL}:8989/settings/mediamanagement and set `Unmonitor Deleted Episodes`
   to true.
 
-## Jellyseerr
+## Seerr
 
 - Open your browser and go to `{URL}:5055`.
 - Follow the installation wizard:

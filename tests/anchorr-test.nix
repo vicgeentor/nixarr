@@ -17,7 +17,7 @@ pkgs.testers.nixosTest {
 
     nixarr = {
       enable = true;
-      jellyseerr.enable = true;
+      seerr.enable = true;
 
       anchorr = {
         enable = true;
@@ -32,13 +32,13 @@ pkgs.testers.nixosTest {
       };
     };
 
-    # Mock jellyseerr API key extraction since we don't want to run full jellyseerr
-    systemd.services.jellyseerr-api-key = {
-      serviceConfig.ExecStart = lib.mkForce (pkgs.writeShellScript "mock-jellyseerr-api-key" ''
+    # Mock seerr API key extraction since we don't want to run full seerr
+    systemd.services.seerr-api-key = {
+      serviceConfig.ExecStart = lib.mkForce (pkgs.writeShellScript "mock-seerr-api-key" ''
         mkdir -p /data/.state/nixarr/api-keys
-        echo "mock-jellyseerr-key" > /data/.state/nixarr/api-keys/jellyseerr.key
-        chown root:jellyseerr-api /data/.state/nixarr/api-keys/jellyseerr.key
-        chmod 640 /data/.state/nixarr/api-keys/jellyseerr.key
+        echo "mock-seerr-key" > /data/.state/nixarr/api-keys/seerr.key
+        chown root:seerr-api /data/.state/nixarr/api-keys/seerr.key
+        chmod 640 /data/.state/nixarr/api-keys/seerr.key
       '');
     };
   };
@@ -59,8 +59,8 @@ pkgs.testers.nixosTest {
     machine.succeed("grep 'DISCORD_TOKEN=test-discord-token' /data/.state/nixarr/anchorr/env")
     machine.succeed("grep 'TMDB_API_KEY=test-tmdb-api-key' /data/.state/nixarr/anchorr/env")
 
-    # Verify Jellyseerr API key was pulled from the extracted key file
-    machine.succeed("grep 'JELLYSEERR_API_KEY=mock-jellyseerr-key' /data/.state/nixarr/anchorr/env")
+    # Verify Seerr API key was pulled from the extracted key file
+    machine.succeed("grep 'SEERR_API_KEY=mock-seerr-key' /data/.state/nixarr/anchorr/env")
 
     # Verify permissions of the env file (should be 600 and owned by anchorr)
     # Note: stat -c %a might return 600

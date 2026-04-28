@@ -9,7 +9,7 @@ with lib; let
 
   serviceCfgFile = {
     bazarr = "${cfg.bazarr.stateDir}/config/config.yaml";
-    jellyseerr = "${cfg.jellyseerr.stateDir}/settings.json";
+    seerr = "${cfg.seerr.stateDir}/settings.json";
     lidarr = "${cfg.lidarr.stateDir}/config.xml";
     prowlarr = "${cfg.prowlarr.stateDir}/config.xml";
     radarr = "${cfg.radarr.stateDir}/config.xml";
@@ -29,8 +29,8 @@ with lib; let
     bazarr = pkgs.writeShellScript "print-bazarr-api-key" ''
       ${yq} -r .auth.apiKey '${serviceCfgFile.bazarr}'
     '';
-    jellyseerr = pkgs.writeShellScript "print-jellyseerr-api-key" ''
-      ${yq} -r .main.apiKey '${serviceCfgFile.jellyseerr}'
+    seerr = pkgs.writeShellScript "print-seerr-api-key" ''
+      ${yq} -r .main.apiKey '${serviceCfgFile.seerr}'
     '';
     lidarr = pkgs.writeShellScript "print-lidarr-api-key" ''
       ${xq} -r .Config.ApiKey '${serviceCfgFile.lidarr}'

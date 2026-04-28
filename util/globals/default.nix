@@ -28,7 +28,7 @@ in {
       bazarr = 232;
       lidarr = 306;
       prowlarr = 293;
-      jellyseerr = 262;
+      seerr = 262;
       komga = 145;
       sonarr = 274;
       radarr = 275;
@@ -47,7 +47,7 @@ in {
       autobrr = 188;
       # Removed 2025-10-29
       # cross-seed = 183;
-      jellyseerr = 250;
+      seerr = 250;
       media = 169;
       prowlarr = 287;
       recyclarr = 269;
@@ -74,9 +74,9 @@ in {
       user = "jellyfin";
       group = globals.libraryOwner.group;
     };
-    jellyseerr = {
-      user = "jellyseerr";
-      group = "jellyseerr";
+    seerr = {
+      user = "seerr";
+      group = "seerr";
     };
     komga = {
       user = "komga";

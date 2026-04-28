@@ -37,7 +37,7 @@ buildNpmPackage rec {
   '';
 
   meta = with lib; {
-    description = "Discord bot for media requests via Jellyseerr and notifications for Jellyfin";
+    description = "Discord bot for media requests via Seerr and notifications for Jellyfin";
     homepage = "https://github.com/nairdahh/Anchorr";
     license = licenses.gpl3Only;
     maintainers = [];
